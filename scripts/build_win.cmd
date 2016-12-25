@@ -48,7 +48,7 @@ if DEFINED APPVEYOR (
     :: Change to 1 to use Ninja generator (builds much faster)
     if NOT DEFINED WITH_NINJA set WITH_NINJA=0
     :: Change to 1 to build caffe without CUDA support
-    if NOT DEFINED CPU_ONLY set CPU_ONLY=0
+    if NOT DEFINED CPU_ONLY set CPU_ONLY=1
     :: Change to Debug to build Debug. This is only relevant for the Ninja generator the Visual Studio generator will generate both Debug and Release configs
     if NOT DEFINED CMAKE_CONFIG set CMAKE_CONFIG=Release
     :: Change to 1 to build a caffe.dll
@@ -113,22 +113,22 @@ if !RUN_TESTS! EQU 1 (
 )
 
 :: Create build directory and configure cmake
-if EXIST build (
-    echo ERROR: build directory already exists in %cd%\build please remove it and start over.
-    exit /b 1
-)
+:: if EXIST build (
+::    echo ERROR: build directory already exists in %cd%\build please remove it and start over.
+::    exit /b 1
+:: )
 
-mkdir build
+::mkdir build
 pushd build
 
 :: Download dependencies from VS x64
-echo INFO: Downloading dependencies
-"%PYTHON_EXE%" "%~dp0\download_prebuilt_dependencies.py" --msvc_version v%MSVC_VERSION%0
+:: echo INFO: Downloading dependencies
+:: "%PYTHON_EXE%" "%~dp0\download_prebuilt_dependencies.py" --msvc_version v%MSVC_VERSION%0
 
-if ERRORLEVEL 1 (
-  echo ERROR: Downloading dependencies failed
-  exit /b 1
-)
+:: if ERRORLEVEL 1 (
+::  echo ERROR: Downloading dependencies failed
+::  exit /b 1
+:: )
 
 
 :: Add the dependencies to the PATH
